@@ -8,7 +8,7 @@
 
 ##Example
 
-	apns 094f11604aa8fddb85c3cef4fd6e30dd42389b45d717113a0d922ee8f4ceb788 development ./cert.pem ./key.pem "Testing APNS"
+	apns_test 094f11604aa8fddb85c3cef4fd6e30dd42389b45d717113a0d922ee8f4ceb788 development ./cert.pem ./key.pem "Testing APNS"
 
 ##Generate Key
 
