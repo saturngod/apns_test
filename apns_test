@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+
+if(process.argv.length!=6)
+{
+	console.info("\nHelp:\n");
+	console.info("apns_test your_token development|production cert_key_path private_key_pem\n");
+	return;
+}
+process.env.DEBUG="apn";
+
+var apn = require('apn');
+
+var gateway ="gateway.push.apple.com";
+
+if(process.argv[3]=="development") {
+	
+	gateway = "gateway.sandbox.push.apple.com";
+}
+else if(process.argv[3]=="production") {
+	gateway ="gateway.push.apple.com";
+}
+
+var options = { "gateway": gateway ,cert:process.argv[4],key:process.argv[5],connectionTimeout:6000};
+
+var apnConnection = new apn.Connection(options);
+
+
+var myDevice = new apn.Device(process.argv[2]);
+var note = new apn.Notification();
+
+note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
+note.badge = 3;
+note.sound = "ping.aiff";
+note.alert = "Welcome";
+note.payload = {'messageFrom': 'Caroline'};
+
+apnConnection.pushNotification(note, myDevice);
