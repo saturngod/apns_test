@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-if(process.argv.length!=6)
+if(process.argv.length!=7)
 {
 	console.info("\nHelp:\n");
 	console.info("apns_test your_token development|production cert_key_path private_key_pem Message\n");
