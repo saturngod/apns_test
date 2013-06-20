@@ -1,7 +1,7 @@
 {
 	"name":"apns_test",
 	"description" : "Testing Apple Push Notification service with node.js",
-	"version" : "1.0.2",
+	"version" : "1.0.4",
 	"author": "saturngod <me@saturngod.net>",
 	"keywords" : [
 		"apple",

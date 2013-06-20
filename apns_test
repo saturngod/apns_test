@@ -1,16 +1,19 @@
 #!/usr/bin/env node
 
-if(process.argv.length!=7)
+if(process.argv.length < 6)
 {
 	console.info("\nHelp:\n");
-	console.info("apns_test your_token development|production cert_key_path private_key_pem Message\n");
+	console.info("apns_test your_token development|production cert_key_path private_key_pem [Message]\n");
 	return;
 }
-process.env.DEBUG="apn";
+else if(process.argv[2].length!=64)
+{
+	console.error("Device Token must be 64 character");
+	return;
+}
 
-var apn = require('apn');
 
-var gateway ="gateway.push.apple.com";
+var gateway ="";
 
 if(process.argv[3]=="development") {
 	
@@ -19,8 +22,20 @@ if(process.argv[3]=="development") {
 else if(process.argv[3]=="production") {
 	gateway ="gateway.push.apple.com";
 }
+else {
+	console.error("only development or production is allow");
+	return;
+}
 
-var options = { "gateway": gateway ,cert:process.argv[4],key:process.argv[5],connectionTimeout:4000};
+
+
+process.env.DEBUG="apn";
+
+var apn = require('apn');
+
+
+
+var options = { "gateway": gateway ,cert:process.argv[4],key:process.argv[5],connectionTimeout:1000};
 
 var apnConnection = new apn.Connection(options);
 
@@ -31,7 +46,15 @@ var note = new apn.Notification();
 note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
 note.badge = 3;
 note.sound = "ping.aiff";
-note.alert = process.argv[6];
-note.payload = {'messageFrom': 'Caroline'};
+
+var alertMessage = "Testing";
+
+if(process.argv.length==7)
+{
+	alertMessage= process.argv[6];
+}
+note.alert = alertMessage;
+
+note.payload = {'messageFrom': 'APNS TEST'};
 
 apnConnection.pushNotification(note, myDevice);
