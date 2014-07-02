@@ -18,7 +18,7 @@ Download **.cer** file from Apple Development.
 
 Open Keychain Access and select push notification certificate and private key. Right Click export.
 
-![keychain export](http://d.pr/i/y1Mb+)
+![keychain export](http://cl.ly/WMsG/download/push.png)
 
 Chose .p12 File Format Extension.
 
